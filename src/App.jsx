@@ -16,9 +16,7 @@ const formatHora = (timestamp) => {
   })
 }
 
-const formatFecha = (timestamp) => {
-  return new Date(timestamp * 1000).toLocaleDateString('en-US', { weekday: 'short' })
-}
+
 
 const App = () => {
   const [ciudad, setCiudad] = useState('Santo Domingo')
@@ -27,7 +25,15 @@ const App = () => {
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState(null)
   const [uvIndex, setUvIndex] = useState(null)
-
+const [aqi, setAqi] = useState(null)
+const [contaminantes, setContaminantes] = useState([])
+const categorias = {
+  1: { label: 'Good', mensaje: 'Air is clean and healthy' },
+  2: { label: 'Fair', mensaje: 'Air quality is acceptable' },
+  3: { label: 'Moderate', mensaje: 'Air quality is moderate' },
+  4: { label: 'Poor', mensaje: 'Air quality is poor' },
+  5: { label: 'Very Poor', mensaje: 'Air quality is very unhealthy' },
+}
  const fetchClima = async (nombreCiudad) => {
   try {
     setCargando(true)
@@ -37,12 +43,18 @@ const App = () => {
       `https://api.openweathermap.org/data/2.5/weather?q=${nombreCiudad}&appid=${API_KEY}&units=metric`
     )
     const dataClima = await resClima.json()
-
+console.log(dataClima)
     if (dataClima.cod !== 200) {
       setError('Ciudad no encontrada')
       return
     }
-
+const resAir = await fetch(
+      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${dataClima.coord.lat}&lon=${dataClima.coord.lon}&appid=${API_KEY}`
+    )
+    const dataAir = await resAir.json()
+    const componentes = dataAir.list[0].components
+const aqiValue = dataAir.list[0].main.aqi
+    console.log(dataAir)
     const resPron = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${nombreCiudad}&appid=${API_KEY}&units=metric`
     )
@@ -78,7 +90,16 @@ const App = () => {
     setCiudad(dataClima.name)
     setPronostico(diasUnicos)
     setUvIndex(dataUV.value ?? '—')
-
+    setAqi(aqiValue)
+    setContaminantes([
+  { label: 'O3',    valor: Math.round(componentes.o3),    categoria: componentes.o3 < 100 ? 'Good' : 'Unhealthy' },
+  { label: 'PM10',  valor: Math.round(componentes.pm10),  categoria: componentes.pm10 < 50 ? 'Good' : 'Unhealthy' },
+  { label: 'NO2',   valor: Math.round(componentes.no2),   categoria: componentes.no2 < 40 ? 'Good' : 'Unhealthy' },
+  { label: 'PM2.5', valor: Math.round(componentes.pm2_5), categoria: componentes.pm2_5 < 25 ? 'Good' : 'Unhealthy' },
+  { label: 'CO',    valor: Math.round(componentes.co),    categoria: componentes.co < 400 ? 'Good' : 'Unhealthy' },
+  { label: 'SO2',   valor: Math.round(componentes.so2),   categoria: componentes.so2 < 20 ? 'Good' : 'Unhealthy' },
+])
+    
   } catch (e) {
     setError('Error al obtener el clima')
   } finally {
@@ -141,10 +162,12 @@ const App = () => {
         />
 
         <AirQuality
-          aqi={9}
-          categoria="Good"
-          mensaje="Air is clean and healthy"
-          contaminantes={[]}
+          aqi={aqi}
+            categoria={categorias[aqi]?.label ?? '—'}
+  mensaje={categorias[aqi]?.mensaje ?? '—'}
+          contaminantes={contaminantes
+            
+        }
         />
 
         <RainChances pronostico={pronostico} />
