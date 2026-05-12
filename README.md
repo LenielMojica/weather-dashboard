@@ -1,16 +1,61 @@
-# React + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🌤️ Weather Dashboard
 
-Currently, two official plugins are available:
+A weather app built with React and Vite to practice component-based thinking and API integration.
+I wanted to build something that actually felt useful — not just a box with a temperature number.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![preview](./assets/preview.png)
 
-## React Compiler
+</div>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔍 Search any city and get real-time weather data
+- 📅 5-day forecast with min/max temperatures
+- 📊 Temperature trend chart powered by Recharts
+- 🌫️ Air Quality Index with pollutant breakdown (O3, NO2, PM2.5, PM10, CO, SO2) color-coded by severity
+- 🌧️ Rain probability per day
+- 🌅 Sunrise & sunset times
+- 💧 Detailed metrics: humidity, wind speed, pressure, visibility, UV index
+
+---
+
+## 🛠️ Tech Stack
+
+<p>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="40" height="40"/>
+</p>
+
+- **React + Vite**
+- **Tailwind CSS**
+- **Recharts**
+- **OpenWeatherMap API** — current weather, forecast, air pollution, UV index
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/LenielMojica/weather-dashboard
+cd weather-dashboard
+npm install
+```
+
+Create a `.env` file in the root:
+
+```
+VITE_WEATHER_API_KEY=your_api_key_here
+```
+
+Then run:
+
+```bash
+npm run dev
+```
+
+> Get a free API key at [openweathermap.org](https://openweathermap.org/api)
