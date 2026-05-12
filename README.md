@@ -5,7 +5,7 @@
 A weather app built with React and Vite to practice component-based thinking and API integration.
 I wanted to build something that actually felt useful — not just a box with a temperature number.
 
-![preview](./assets/preview.png)
+![preview](./assets/Preview.png)
 
 </div>
 
