@@ -1,6 +1,6 @@
 const MainCard = ({ ciudad, temperatura, descripcion, ciudades, ultimaActualizacion, onCiudadClick }) => {
   return (
-    <div className="col-span-3 bg-gradient-to-b from-orange-400 to-orange-600 rounded-2xl p-5 flex flex-col justify-between min-h-64">
+    <div className="col-span-3 bg-linear-to-b from-orange-400 to-orange-600 rounded-2xl p-5 flex flex-col justify-between min-h-64">
       
       {/* Header */}
       <div className="flex justify-between items-start">
